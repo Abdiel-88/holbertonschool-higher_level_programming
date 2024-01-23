@@ -8,5 +8,4 @@ message
 git add "$file"
 git update-index --chmod=+x "$file"
 git ls-files --stage
-git commit -m "$message"
 git push
