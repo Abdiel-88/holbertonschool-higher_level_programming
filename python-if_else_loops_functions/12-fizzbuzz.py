@@ -9,10 +9,5 @@ def fizzbuzz():
         elif number % 5 == 0:
             print("Buzz", end=" ")
         else:
-            print(number, end=" ")
+            print("{} ".format(number), end=" ")
 
-# After the loop, print a final new line
-print()
-
-# Example usage
-fizzbuzz()
