@@ -11,5 +11,8 @@ def fizzbuzz():
         else:
             print(number, end=" ")
 
+# After the loop, print a final new line
+print()
+
 # Example usage
 fizzbuzz()
