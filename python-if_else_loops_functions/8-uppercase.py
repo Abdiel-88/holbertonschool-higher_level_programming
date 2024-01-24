@@ -1,13 +1,14 @@
 #!/usr/bin/python3
 
 def uppercase(str):
-    uppercase_str = ''
     for char in str:
+        # Check if the character is lowercase
         if 'a' <= char <= 'z':
-            uppercase_str += chr(ord(char) - 32)
-        else:
-            uppercase_str += char
-    print(uppercase_str)
+            # Convert to uppercase by subtracting 32 from ASCII value
+            char = chr(ord(char) - 32)
+        print("{}".format(char), end="")
+    print()  # Print a new line after the string
 
-# Example usage
-uppercase("Hello World!")
+# Example usage (these lines are for testing and should be in a separate file)
+# uppercase("best")
+# uppercase("Best School 98 Battery street")
