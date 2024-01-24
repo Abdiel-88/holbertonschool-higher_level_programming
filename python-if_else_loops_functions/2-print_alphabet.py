@@ -1,5 +1,11 @@
 #!/usr/bin/python3
 
-# Using a single loop to iterate through ASCII values of 'a' to 'z'
+# Initialize an empty string
+alphabet = ''
+
+# Append each character to the string within the loop
 for i in range(97, 123):
-    print(chr(i), end='')
+    alphabet += chr(i)
+
+# Use only one print function with string formatting
+print(f"{alphabet}", end='')
