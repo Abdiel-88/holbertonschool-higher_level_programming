@@ -1,2 +1,2 @@
 def islower(c):
-    return ord(c) >= 97 and ord(c) <= 122
+    return 97 <= ord(c) <= 122
