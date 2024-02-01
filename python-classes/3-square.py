@@ -1,9 +1,9 @@
 #!/usr/bin/python3
-"""Defines a class Square with size validation and area calculation."""
+"""Defines class Square with size validation and area calculation."""
 
 
 class Square:
-    """Defines a square by its size with validation, and calculates its area."""
+    """Defines square by its size with validation, and calculates its area."""
     def __init__(self, size=0):
         if not isinstance(size, int):
             raise TypeError("size must be an integer")
