@@ -1,13 +1,14 @@
 #!/usr/bin/python3
 """
 This module defines a function add_integer that adds two numbers.
-The numbers must be integers or floats, where floats are cast to integers before addition.
+The numbers must be integers or floats, where floats are cast
+to integers before addition.
 """
+
 
 def add_integer(a, b=98):
     """
     Adds two integers or floats.
-    
     Parameters:
     a (int, float): The first number.
     b (int, float, optional): The second number. Defaults to 98.
