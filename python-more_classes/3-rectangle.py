@@ -3,7 +3,6 @@
 This module defines a Rectangle class with width and height attributes.
 """
 
-
 class Rectangle:
     """Defines a rectangle with width and height attributes."""
 
@@ -48,17 +47,15 @@ class Rectangle:
         """Returns the rectangle perimeter."""
         if self.__width == 0 or self.__height == 0:
             return 0
+
         return 2 * (self.__width + self.__height)
 
     def __str__(self):
-        """
-        Returns a string representation of the
-        rectangle using '#' characters.
-        """
+        """Returns a string representation of the rectangle using '#' characters."""
         if self.__width == 0 or self.__height == 0:
             return ""
         return "\n".join(['#' * self.__width] * self.__height)
 
     def __repr__(self):
         """Returns a string representation of the rectangle object."""
-        return "Rectangle({}, {})".format(self.__width, self.__height)
+        return "<{}.{}, {}>".format(self.__class__.__module__, self.__class__.__name__, self.__dict__)
