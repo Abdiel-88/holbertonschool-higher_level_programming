@@ -2,6 +2,8 @@
 """
 This module defines a Rectangle class with width and height attributes.
 """
+
+
 class Rectangle:
     """Defines a rectangle with width and height attributes."""
     def __init__(self, width=0, height=0):
@@ -37,6 +39,7 @@ class Rectangle:
             raise ValueError("height must be >= 0")
 
         self.__height = value
+
 
 # Test cases
 try:
