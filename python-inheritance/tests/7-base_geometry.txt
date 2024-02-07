@@ -1,0 +1,68 @@
+Test for 7-base_geometry.py
+-------------------------------------------
+
+case 0: area method not implemented
+
+>>> bg = BaseGeometry()
+>>> bg.area()
+Traceback (most recent call last):
+  ...
+Exception: area() is not implemented
+
+-------------------------------------------
+
+case 1: integer_validator with valid integers
+
+>>> bg.integer_validator("my_int", 12)
+>>> bg.integer_validator("width", 89)
+
+-------------------------------------------
+
+case 2: integer_validator with a string instead of integer
+
+>>> bg.integer_validator("name", "John")
+Traceback (most recent call last):
+  ...
+TypeError: name must be an integer
+
+-------------------------------------------
+
+case 3: integer_validator with value 0
+
+>>> bg.integer_validator("age", 0)
+Traceback (most recent call last):
+  ...
+ValueError: age must be greater than 0
+
+-------------------------------------------
+
+case 4: integer_validator with negative value
+
+>>> bg.integer_validator("distance", -4)
+Traceback (most recent call last):
+  ...
+ValueError: distance must be greater than 0
+
+-------------------------------------------
+
+case 5: integer_validator with valid integer (edge case)
+
+>>> bg.integer_validator("edge", 1)
+
+-------------------------------------------
+
+case 6: integer_validator with a float instead of integer
+
+>>> bg.integer_validator("float_value", 3.14)
+Traceback (most recent call last):
+  ...
+TypeError: float_value must be an integer
+
+-------------------------------------------
+
+case 7: integer_validator with a boolean instead of integer
+
+>>> bg.integer_validator("boolean_value", True)
+Traceback (most recent call last):
+  ...
+TypeError: boolean_value must be an integer
