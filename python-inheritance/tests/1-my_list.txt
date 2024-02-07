@@ -1,0 +1,50 @@
+Manual Test Cases for 1-my_list.py:
+
+Test Case 1:
+Description: Test an empty MyList instance.
+Steps:
+1. Create an instance of MyList: my_list = MyList()
+2. Call print_sorted on the instance: my_list.print_sorted()
+Expected Output: []
+
+Test Case 2:
+Description: Test MyList with a single element.
+Steps:
+1. Create an instance of MyList and append a single element: my_list = MyList(); my_list.append(1)
+2. Call print_sorted on the instance: my_list.print_sorted()
+Expected Output: [1]
+
+Test Case 3:
+Description: Test MyList with multiple elements.
+Steps:
+1. Create an instance of MyList and append multiple elements: my_list = MyList(); my_list.extend([1, 4, 2, 3, 5])
+2. Call print_sorted on the instance: my_list.print_sorted()
+Expected Output: [1, 2, 3, 4, 5]
+
+Test Case 4:
+Description: Test MyList with already sorted elements.
+Steps:
+1. Create an instance of MyList and append elements in ascending order: my_list = MyList(); my_list.extend([1, 2, 3, 4, 5])
+2. Call print_sorted on the instance: my_list.print_sorted()
+Expected Output: [1, 2, 3, 4, 5]
+
+Test Case 5:
+Description: Test MyList with elements in descending order.
+Steps:
+1. Create an instance of MyList and append elements in descending order: my_list = MyList(); my_list.extend([5, 4, 3, 2, 1])
+2. Call print_sorted on the instance: my_list.print_sorted()
+Expected Output: [1, 2, 3, 4, 5]
+
+Test Case 6:
+Description: Ensure the original list is not modified after calling print_sorted.
+Steps:
+1. Create an instance of MyList and append multiple elements: my_list = MyList(); my_list.extend([4, 1, 3, 2])
+2. Print the original list: print(my_list)
+3. Call print_sorted on the instance: my_list.print_sorted()
+4. Print the list again to verify if it has been modified: print(my_list)
+Expected Output:
+[4, 1, 3, 2]
+[1, 2, 3, 4]
+[4, 1, 3, 2]
+
+Please replace the manual steps with actual Python code in a test script or interactive Python session to verify the expected behavior.
