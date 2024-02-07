@@ -1,8 +1,10 @@
 #!/usr/bin/python3
 """
-This module defines the lookup function that returns a list of available attributes
+This module defines the lookup function
+that returns a list of available attributes
 and methods of an object.
 """
+
 
 def lookup(obj):
     """Returns the list of available attributes and methods of an object.
