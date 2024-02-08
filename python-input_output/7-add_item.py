@@ -1,8 +1,11 @@
 #!/usr/bin/python3
 """
-A script that adds all arguments to a Python list and saves them to a file.
-The list is saved as a JSON representation in a file named add_item.json.
+Module to add all command-line arguments to a list
+and save them to 'add_item.json'.
+Utilizes functions from 'save_to_json_file'
+and 'load_from_json_file' modules.
 """
+
 
 import sys
 
