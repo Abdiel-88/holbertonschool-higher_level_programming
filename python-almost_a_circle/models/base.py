@@ -1,4 +1,9 @@
 #!/usr/bin/python3
+"""Defines a base model class."""
+import json
+import csv
+import turtle
+
 """
 This module defines the Base class.
 The Base class serves as the foundation for all other classes in this project.
