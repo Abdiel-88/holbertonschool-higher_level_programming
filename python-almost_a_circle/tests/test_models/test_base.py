@@ -1,28 +1,51 @@
 #!/usr/bin/python3
-"""Script to test the Base class from models.base"""
+"""
+Unit tests for the Base class.
 
+This test file will validate the functionality of the Base class,
+focusing on testing id assignment and management.
+"""
+
+import unittest
 from models.base import Base
 
-def test_base():
-    # Test with no id given; should auto-assign starting with 1
-    b1 = Base()
-    print(b1.id)  # Expected output: 1
 
-    # Test with no id again; should increment to 2
-    b2 = Base()
-    print(b2.id)  # Expected output: 2
+class TestBase(unittest.TestCase):
+    """
+    Test suite for the Base class.
 
-    # Test with no id once more; should increment to 3
-    b3 = Base()
-    print(b3.id)  # Expected output: 3
+    This suite tests various scenarios of id assignment to ensure correct
+    behavior of the Base class constructor, including automatic and manual
+    id assignment.
+    """
 
-    # Test with a specific id
-    b4 = Base(12)
-    print(b4.id)  # Expected output: 12
+    def setUp(self):
+        """Reset the class attribute before each test."""
+        Base._Base__nb_objects = 0
 
-    # Test with no id again; should continue incrementing automatically, not affected by custom id
-    b5 = Base()
-    print(b5.id)  # Expected output: 4
+    def test_id_auto_assignment(self):
+        """Test that id is correctly auto-assigned when not provided."""
+        base1 = Base()
+        base2 = Base()
+        self.assertEqual(base1.id, 1, "Auto-assigned id should be 1")
+        self.assertEqual(base2.id, 2, "Auto-assigned id should be 2")
+
+    def test_id_manual_assignment(self):
+        """Test that a manually assigned id is correctly used."""
+        base3 = Base(10)
+        base4 = Base(20)
+        self.assertEqual(base3.id, 10, "Manually assigned id should be 10")
+        self.assertEqual(base4.id, 20, "Manually assigned id should be 20")
+
+    def test_id_mixed_assignment(self):
+        """Test a mix of manually and auto-assigned ids."""
+        base5 = Base()
+        base6 = Base(100)
+        base7 = Base()
+        self.assertEqual(base5.id, 1, "Auto-assigned id should be 1")
+        self.assertEqual(base6.id, 100, "Manually assigned id should be 100")
+        self.assertEqual(base7.id, 2, "Next auto-assigned id should be 2")
+
 
 if __name__ == "__main__":
-    test_base()
+    unittest.main()
