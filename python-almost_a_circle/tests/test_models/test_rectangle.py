@@ -9,6 +9,8 @@ for width, height, x, and y attributes.
 """
 
 import unittest
+import io
+import sys
 from models.rectangle import Rectangle
 
 
@@ -22,6 +24,16 @@ class TestRectangleValidation(unittest.TestCase):
     - x validation (integer type and value >= 0)
     - y validation (integer type and value >= 0)
     """
+
+    def setUp(self):
+        """Redirect stdout to capture print outputs and reset __nb_objects."""
+        self.capturedOutput = io.StringIO()  # Create StringIO object
+        sys.stdout = self.capturedOutput     # Redirect stdout.
+        Rectangle._Base__nb_objects = 0      # Reset __nb_objects for id
+
+    def tearDown(self):
+        """Reset stdout to default."""
+        sys.stdout = sys.__stdout__
 
     def test_width_validation(self):
         """Test validation of the width attribute."""
@@ -87,6 +99,22 @@ class TestRectangleValidation(unittest.TestCase):
 
         r3 = Rectangle(8, 7)
         self.assertEqual(r3.area(), 56, "Area should be 56 for an 8x7.")
+
+    def test_display_simple(self):
+        """Test the display method with a simple rectangle."""
+        r1 = Rectangle(2, 3)
+        r1.display()
+        expected_output = "##\n##\n##\n"
+        self.assertEqual(self.capturedOutput.getvalue(), expected_output)
+
+    def test_display_larger(self):
+        """Test the display method with a larger rectangle."""
+        self.capturedOutput.truncate(0)  # Clear the previous output
+        self.capturedOutput.seek(0)
+        r2 = Rectangle(4, 2)
+        r2.display()
+        expected_output = "####\n####\n"
+        self.assertEqual(self.capturedOutput.getvalue(), expected_output)
 
 
 if __name__ == "__main__":
