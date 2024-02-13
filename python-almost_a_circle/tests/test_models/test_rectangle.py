@@ -71,6 +71,23 @@ class TestRectangleValidation(unittest.TestCase):
             Rectangle(10, 2, 0, -1)
         self.assertEqual(str(e.exception), "y must be >= 0")
 
+    def test_attribute_assignment(self):
+        """Test correct assignment of attributes."""
+        r1 = Rectangle(10, 2, 1, 1, 99)
+        self.assertEqual(r1.width, 10)
+        self.assertEqual(r1.height, 2)
+        self.assertEqual(r1.x, 1)
+        self.assertEqual(r1.y, 1)
+        self.assertEqual(r1.id, 99)
+
+    def test_area(self):
+        """Test the area method."""
+        r2 = Rectangle(3, 2)
+        self.assertEqual(r2.area(), 6, "Area should be 6 for a 3x2 Rectangle")
+
+        r3 = Rectangle(8, 7)
+        self.assertEqual(r3.area(), 56, "Area should be 56 for an 8x7.")
+
 
 if __name__ == "__main__":
     unittest.main()

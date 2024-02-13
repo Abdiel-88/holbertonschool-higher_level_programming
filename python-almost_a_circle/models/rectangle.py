@@ -24,10 +24,10 @@ class Rectangle(Base):
         Args:
             width (int): The width of the rectangle.
             height (int): The height of the rectangle.
-            x (int, optional): The x coordinate
-            of the rectangle. Defaults to 0.
-            y (int, optional): The y coordinate
-            of the rectangle. Defaults to 0.
+            x (int, optional): The x coordinate of
+            the rectangle. Defaults to 0.
+            y (int, optional): The y coordinate of
+            the rectangle. Defaults to 0.
             id (int, optional): The id of the object.
             If None, an id is automatically assigned.
         """
@@ -39,7 +39,7 @@ class Rectangle(Base):
 
     @property
     def width(self):
-        """Gets the width of the rectangle."""
+        """Gets or sets the width of the rectangle."""
         return self.__width
 
     @width.setter
@@ -52,7 +52,7 @@ class Rectangle(Base):
 
     @property
     def height(self):
-        """Gets the height of the rectangle."""
+        """Gets or sets the height of the rectangle."""
         return self.__height
 
     @height.setter
@@ -65,7 +65,7 @@ class Rectangle(Base):
 
     @property
     def x(self):
-        """Gets the x coordinate of the rectangle."""
+        """Gets or sets the x coordinate of the rectangle."""
         return self.__x
 
     @x.setter
@@ -78,7 +78,7 @@ class Rectangle(Base):
 
     @property
     def y(self):
-        """Gets the y coordinate of the rectangle."""
+        """Gets or sets the y coordinate of the rectangle."""
         return self.__y
 
     @y.setter
@@ -88,3 +88,12 @@ class Rectangle(Base):
         if value < 0:
             raise ValueError("y must be >= 0")
         self.__y = value
+
+    def area(self):
+        """
+        Returns the area of the Rectangle instance.
+
+        Returns:
+            The area of the rectangle.
+        """
+        return self.width * self.height
