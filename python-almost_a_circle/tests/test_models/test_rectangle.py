@@ -156,6 +156,36 @@ class TestRectangleValidation(unittest.TestCase):
         expected_output = "\n" + (" ####\n")
         self.assertEqual(self.capturedOutput.getvalue(), expected_output)
 
+    def test_update_id(self):
+        """Test updating the id attribute."""
+        r1 = Rectangle(10, 10, 10, 10, 10)
+        r1.update(1)
+        self.assertEqual(r1.id, 1)
+
+    def test_update_width_height(self):
+        """Test updating width and height."""
+        r2 = Rectangle(10, 10, 10, 10)
+        r2.update(1, 2, 3)
+        self.assertEqual(r2.width, 2)
+        self.assertEqual(r2.height, 3)
+
+    def test_update_x_y(self):
+        """Test updating x and y."""
+        r3 = Rectangle(10, 10, 10, 10)
+        r3.update(1, 2, 3, 4, 5)
+        self.assertEqual(r3.x, 4)
+        self.assertEqual(r3.y, 5)
+
+    def test_update_all_attributes(self):
+        """Test updating all attributes."""
+        r4 = Rectangle(10, 10, 10, 10)
+        r4.update(89, 2, 3, 4, 5)
+        self.assertEqual(r4.id, 89)
+        self.assertEqual(r4.width, 2)
+        self.assertEqual(r4.height, 3)
+        self.assertEqual(r4.x, 4)
+        self.assertEqual(r4.y, 5)
+
 
 if __name__ == "__main__":
     unittest.main()

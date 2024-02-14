@@ -112,3 +112,12 @@ class Rectangle(Base):
         """
         return (f"[Rectangle] ({self.id}) {self.x}/{self.y} "
                 f"- {self.width}/{self.height}")
+
+    def update(self, *args):
+        """
+        Updates the attributes of the Rectangle instance using non-keyword
+        arguments. The order of arguments is id, width, height, x, y.
+        """
+        attributes = ['id', 'width', 'height', 'x', 'y']
+        for attr, value in zip(attributes, args):
+            setattr(self, attr, value)
