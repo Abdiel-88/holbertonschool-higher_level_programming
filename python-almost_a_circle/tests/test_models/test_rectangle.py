@@ -116,6 +116,29 @@ class TestRectangleValidation(unittest.TestCase):
         expected_output = "####\n####\n"
         self.assertEqual(self.capturedOutput.getvalue(), expected_output)
 
+    def test_area_calculation(self):
+        """
+        Test the area calculation method of the Rectangle class.
+        """
+        rect = Rectangle(3, 4)
+        self.assertEqual(rect.area(), 12)
+
+    def test_display_output(self):
+        """
+        Test the display method's output of the Rectangle class.
+        """
+        rect = Rectangle(2, 3)
+        rect.display()
+        expected_output = "##\n##\n##\n"
+        self.assertEqual(self.capturedOutput.getvalue(), expected_output)
+
+    def test_str_method(self):
+        """
+        Test the __str__ method output of the Rectangle class.
+        """
+        rect = Rectangle(4, 6, 2, 2, 50)
+        self.assertEqual(str(rect), "[Rectangle] (50) 2/2 - 4/6")
+
 
 if __name__ == "__main__":
     unittest.main()

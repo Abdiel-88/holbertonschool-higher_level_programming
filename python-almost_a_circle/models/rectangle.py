@@ -22,14 +22,12 @@ class Rectangle(Base):
         Initializes a new Rectangle instance.
 
         Args:
-            width (int): The width of the rectangle.
-            height (int): The height of the rectangle.
-            x (int, optional): The x coordinate of
-            the rectangle. Defaults to 0.
-            y (int, optional): The y coordinate of
-            the rectangle. Defaults to 0.
-            id (int, optional): The id of the object.
-            If None, an id is automatically assigned.
+        width (int): The width of the rectangle.
+        height (int): The height of the rectangle.
+        x (int, optional): The x coordinate of the rectangle. Defaults to 0.
+        y (int, optional): The y coordinate of the rectangle. Defaults to 0.
+        id (int, optional): The id of the object.
+        If None, an id is automatically assigned.
         """
         super().__init__(id)
         self.width = width
@@ -92,9 +90,6 @@ class Rectangle(Base):
     def area(self):
         """
         Returns the area of the Rectangle instance.
-
-        Returns:
-            The area of the rectangle.
         """
         return self.width * self.height
 
@@ -104,3 +99,10 @@ class Rectangle(Base):
         """
         for _ in range(self.height):
             print("#" * self.width)
+
+    def __str__(self):
+        """
+        Returns the string representation of the Rectangle instance.
+        """
+        return (f"[Rectangle] ({self.id}) {self.x}/{self.y} "
+                f"- {self.width}/{self.height}")
