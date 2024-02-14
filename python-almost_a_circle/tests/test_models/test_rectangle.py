@@ -139,6 +139,23 @@ class TestRectangleValidation(unittest.TestCase):
         rect = Rectangle(4, 6, 2, 2, 50)
         self.assertEqual(str(rect), "[Rectangle] (50) 2/2 - 4/6")
 
+    def test_display_with_xy(self):
+        """
+        Test the display method's output considering x and y attributes.
+        """
+        r1 = Rectangle(2, 3, 2, 2)
+        r1.display()
+        expected_output = "\n\n" + ("  ##\n" * 3)
+        self.assertEqual(self.capturedOutput.getvalue(), expected_output)
+
+        self.capturedOutput.truncate(0)
+        self.capturedOutput.seek(0)
+
+        r2 = Rectangle(4, 1, 1, 1)
+        r2.display()
+        expected_output = "\n" + (" ####\n")
+        self.assertEqual(self.capturedOutput.getvalue(), expected_output)
+
 
 if __name__ == "__main__":
     unittest.main()
