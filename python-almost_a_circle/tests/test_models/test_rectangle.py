@@ -186,6 +186,37 @@ class TestRectangleValidation(unittest.TestCase):
         self.assertEqual(r4.x, 4)
         self.assertEqual(r4.y, 5)
 
+    def test_update_args(self):
+        """Test updating attributes using *args."""
+        r1 = Rectangle(1, 1, 1, 1, 1)
+        r1.update(2, 3, 4, 5, 6)
+        self.assertEqual(r1.id, 2)
+        self.assertEqual(r1.width, 3)
+        self.assertEqual(r1.height, 4)
+        self.assertEqual(r1.x, 5)
+        self.assertEqual(r1.y, 6)
+
+    def test_update_kwargs(self):
+        """Test updating attributes using **kwargs."""
+        r2 = Rectangle(1, 1, 1, 1, 1)
+        r2.update(height=10, width=9, y=8, x=7, id=6)
+        self.assertEqual(r2.id, 6)
+        self.assertEqual(r2.width, 9)
+        self.assertEqual(r2.height, 10)
+        self.assertEqual(r2.x, 7)
+        self.assertEqual(r2.y, 8)
+
+    def test_update_args_and_kwargs(self):
+        """Test that *args takes precedence over **kwargs."""
+        r3 = Rectangle(1, 1, 1, 1, 1)
+        r3.update(2, 3, 4, id=6, width=9, height=10)
+        self.assertEqual(r3.id, 2)  # Updated by *args, not **kwargs
+        self.assertEqual(r3.width, 3)  # Updated by *args, not **kwargs
+        self.assertEqual(r3.height, 4)  # Updated by *args, not **kwargs
+        # x and y not updated by *args, so they remain unchanged
+        self.assertEqual(r3.x, 1)
+        self.assertEqual(r3.y, 1)
+
 
 if __name__ == "__main__":
     unittest.main()
