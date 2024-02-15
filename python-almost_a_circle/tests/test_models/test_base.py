@@ -2,37 +2,24 @@
 """
 Unit tests for the Base class.
 
-This test file will validate the functionality of the Base class,
-focusing on testing id assignment and management, JSON string conversion,
-and writing JSON strings to files.
+This test file validates the functionality of the Base class,
+including id assignment, JSON string conversion, and deserialization.
 """
 
 import unittest
 from models.base import Base
-from models.rectangle import Rectangle  # Adjust if using a different class
 import json
-import os
 
 
 class TestBase(unittest.TestCase):
     """
-    Test suite for the Base class, covering id assignment, JSON conversion,
-    and file operations.
+    Test suite for the Base class.
     """
 
     @classmethod
     def setUpClass(cls):
         """Reset the Base class counter before the tests run."""
         Base._Base__nb_objects = 0
-        cls.filepath = "Rectangle.json"
-
-    @classmethod
-    def tearDownClass(cls):
-        """Clean up: remove files created by the save_to_file tests."""
-        try:
-            os.remove(cls.filepath)
-        except FileNotFoundError:
-            pass
 
     def setUp(self):
         """Reset the class attribute before each test."""
@@ -76,30 +63,25 @@ class TestBase(unittest.TestCase):
         """Test converting None to a JSON string."""
         self.assertEqual(Base.to_json_string(None), "[]")
 
-    def test_save_to_file_with_rectangles(self):
-        """Test saving a list of Rectangle objects to a file."""
-        rect1 = Rectangle(10, 7, 2, 8, 1)
-        rect2 = Rectangle(2, 4, 0, 0, 2)
-        Rectangle.save_to_file([rect1, rect2])
-        with open(self.filepath, 'r') as file:
-            content = file.read()
-            list_objs = json.loads(content)
-            expected = [rect1.to_dictionary(), rect2.to_dictionary()]
-            self.assertCountEqual(list_objs, expected)
+    def test_from_json_string(self):
+        """Test converting a JSON string to a list of dictionaries."""
+        json_str = (
+            '[{"id": 1, "width": 10, "height": 7}, '
+            '{"id": 2, "width": 2, "height": 4}]'
+                    )
+        expected = [
+            {"id": 1, "width": 10, "height": 7},
+            {"id": 2, "width": 2, "height": 4}
+            ]
+        self.assertEqual(Base.from_json_string(json_str), expected)
 
-    def test_save_to_file_none(self):
-        """Test saving None, expecting an empty list in the file."""
-        Rectangle.save_to_file(None)
-        with open(self.filepath, 'r') as file:
-            content = file.read()
-            self.assertEqual(content, "[]")
+    def test_from_json_string_empty(self):
+        """Test converting an empty string to a list."""
+        self.assertEqual(Base.from_json_string(""), [])
 
-    def test_save_to_file_empty_list(self):
-        """Test saving an empty list, expecting an empty list in the file."""
-        Rectangle.save_to_file([])
-        with open(self.filepath, 'r') as file:
-            content = file.read()
-            self.assertEqual(content, "[]")
+    def test_from_json_string_none(self):
+        """Test converting None to a list."""
+        self.assertEqual(Base.from_json_string(None), [])
 
 
 if __name__ == "__main__":

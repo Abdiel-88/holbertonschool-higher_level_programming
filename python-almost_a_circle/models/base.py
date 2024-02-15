@@ -33,11 +33,20 @@ class Base:
             self.id = Base.__nb_objects
 
     @staticmethod
-    def to_json_string(list_dictionaries):
-        """Converts list of dictionaries to JSON string."""
-        if list_dictionaries is None or len(list_dictionaries) == 0:
-            return "[]"
-        return json.dumps(list_dictionaries)
+    def from_json_string(json_string):
+        """
+        Returns the list of the JSON string representation json_string.
+
+        Args:
+            json_string (str): A string representing a list of dictionaries.
+
+        Returns:
+            list: The list represented by json_string. Returns an empty list if
+            json_string is None or empty.
+        """
+        if json_string is None or json_string == "":
+            return []
+        return json.loads(json_string)
 
     @classmethod
     def save_to_file(cls, list_objs):
@@ -56,3 +65,18 @@ class Base:
 
         with open(filename, 'w') as f:
             f.write(json_string)
+
+    @staticmethod
+    def to_json_string(list_dictionaries):
+        """
+        Returns the JSON string representation of list_dictionaries.
+
+        Args:
+            list_dictionaries (list of dict): A list of dictionaries.
+
+        Returns:
+            str: The JSON string representation of list_dictionaries.
+        """
+        if list_dictionaries is None or not list_dictionaries:
+            return "[]"
+        return json.dumps(list_dictionaries)
