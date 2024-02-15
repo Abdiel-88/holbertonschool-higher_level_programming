@@ -27,28 +27,24 @@ class Square(Rectangle):
 
     @property
     def size(self):
+        """
+        Gets the size of the square.
+        """
         return self.width
 
     @size.setter
     def size(self, value):
-        # Call the Rectangle's width setter for validation
+        """
+        Sets the size of the square,
+        applying the same value to width and height.
+        Utilizes the width and height validation from Rectangle.
+        """
+        # Directly using the Rectangle's property setters ensures validation.
         self.width = value
         self.height = value
 
     def __str__(self):
+        """
+        Returns the string representation of the Square instance.
+        """
         return f"[Square] ({self.id}) {self.x}/{self.y} - {self.size}"
-
-    def update(self, *args, **kwargs):
-        attrs = ['id', 'size', 'x', 'y']
-        if args:
-            for attr, arg in zip(attrs, args):
-                if attr == 'size':
-                    self.size = arg  # Use the size property for validation
-                else:
-                    setattr(self, attr, arg)
-        else:
-            for key, value in kwargs.items():
-                if key == 'size':
-                    self.size = value  # Use the size property for validation
-                elif key in attrs:
-                    setattr(self, key, value)
