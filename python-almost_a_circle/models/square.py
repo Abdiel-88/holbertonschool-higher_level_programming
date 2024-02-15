@@ -25,10 +25,28 @@ class Square(Rectangle):
         """
         super().__init__(size, size, x, y, id)
 
+    @property
+    def size(self):
+        return self.width
+
+    @size.setter
+    def size(self, value):
+        self.width = value
+        self.height = value
+
     def __str__(self):
-        """
-        Returns the string representation of the Square instance.
-        """
         return f"[Square] ({self.id}) {self.x}/{self.y} - {self.width}"
 
-    # Additional methods for Square specific logic can be added here
+    def update(self, *args, **kwargs):
+        attrs = ['id', 'size', 'x', 'y']
+        if args:
+            for attr, arg in zip(attrs, args):
+                setattr(self, attr if attr != 'size' else 'width', arg)
+                if attr == 'size':
+                    self.height = arg
+        else:
+            for key, value in kwargs.items():
+                if key in attrs:
+                    setattr(self, key if key != 'size' else 'width', value)
+                    if key == 'size':
+                        self.height = value

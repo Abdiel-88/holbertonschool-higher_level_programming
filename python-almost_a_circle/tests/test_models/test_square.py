@@ -25,9 +25,30 @@ class TestSquare(unittest.TestCase):
         s2 = Square(4, 2, 1, 4)
         self.assertEqual(str(s2), "[Square] (4) 2/1 - 4")
 
-    # Additional tests can cover methods inherited from Rectangle,
-    # such as area, display, and update, ensuring they behave as expected
-    # when applied to a Square instance.
+    def test_size_getter(self):
+        """Test the size getter."""
+        s = Square(5)
+        self.assertEqual(s.size, 5)
+
+    def test_size_setter(self):
+        """Test the size setter."""
+        s = Square(5)
+        s.size = 10
+        self.assertEqual(s.size, 10)
+        self.assertEqual(s.width, 10)
+        self.assertEqual(s.height, 10)
+
+    def test_size_validation_type(self):
+        """Test the size setter for type validation."""
+        s = Square(5)
+        with self.assertRaises(TypeError):
+            s.size = "10"
+
+    def test_size_validation_value(self):
+        """Test the size setter for value validation (must be > 0)."""
+        s = Square(5)
+        with self.assertRaises(ValueError):
+            s.size = -10
 
     def test_square_area(self):
         """Test the area method for a Square."""
