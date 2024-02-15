@@ -3,11 +3,15 @@
 Unit tests for the Base class.
 
 This test file validates the functionality of the Base class,
-including id assignment, JSON string conversion, and deserialization.
+focusing on testing id assignment, JSON string conversion,
+and instance creation from dictionaries.
 """
 
 import unittest
 from models.base import Base
+from models.rectangle import Rectangle
+from models.square import Square
+import os
 import json
 
 
@@ -68,7 +72,7 @@ class TestBase(unittest.TestCase):
         json_str = (
             '[{"id": 1, "width": 10, "height": 7}, '
             '{"id": 2, "width": 2, "height": 4}]'
-                    )
+            )
         expected = [
             {"id": 1, "width": 10, "height": 7},
             {"id": 2, "width": 2, "height": 4}
@@ -82,6 +86,25 @@ class TestBase(unittest.TestCase):
     def test_from_json_string_none(self):
         """Test converting None to a list."""
         self.assertEqual(Base.from_json_string(None), [])
+
+    def test_create_rectangle(self):
+        """Test creating a Rectangle instance from a dictionary."""
+        r_dict = {'width': 3, 'height': 4, 'x': 1, 'y': 2}
+        rectangle = Rectangle.create(**r_dict)
+        self.assertIsInstance(rectangle, Rectangle)
+        self.assertEqual(rectangle.width, 3)
+        self.assertEqual(rectangle.height, 4)
+        self.assertEqual(rectangle.x, 1)
+        self.assertEqual(rectangle.y, 2)
+
+    def test_create_square(self):
+        """Test creating a Square instance from a dictionary."""
+        s_dict = {'size': 5, 'x': 1, 'y': 2}
+        square = Square.create(**s_dict)
+        self.assertIsInstance(square, Square)
+        self.assertEqual(square.size, 5)
+        self.assertEqual(square.x, 1)
+        self.assertEqual(square.y, 2)
 
 
 if __name__ == "__main__":

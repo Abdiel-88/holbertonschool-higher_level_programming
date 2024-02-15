@@ -77,6 +77,30 @@ class Base:
         Returns:
             str: The JSON string representation of list_dictionaries.
         """
-        if list_dictionaries is None or not list_dictionaries:
+        if not list_dictionaries:
             return "[]"
         return json.dumps(list_dictionaries)
+
+    @classmethod
+    def create(cls, **dictionary):
+        """
+        Returns an instance with all
+        attributes set according to the dictionary.
+
+        Args:
+            **dictionary: A dictionary of attributes to set on the instance.
+
+        Returns:
+            Instance of cls with attributes set according to dictionary.
+        """
+        # Create a "dummy" instance with default mandatory attributes
+        if cls.__name__ == "Rectangle":
+            dummy = cls(1, 1)
+        elif cls.__name__ == "Square":
+            dummy = cls(1)
+        else:
+            raise TypeError("Unknown class name")
+
+        # Use the instance's update method to set the actual attributes
+        dummy.update(**dictionary)
+        return dummy
