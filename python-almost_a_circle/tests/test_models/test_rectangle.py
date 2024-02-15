@@ -217,6 +217,17 @@ class TestRectangleValidation(unittest.TestCase):
         self.assertEqual(r3.x, 1)
         self.assertEqual(r3.y, 1)
 
+    def test_to_dictionary(self):
+        """
+        Test that to_dictionary method returns
+        the correct dictionary representation.
+        """
+        rect = Rectangle(10, 7, 2, 8, 1)
+        expected_dict = {'id': 1, 'width': 10, 'height': 7, 'x': 2, 'y': 8}
+        self.assertEqual(
+            rect.to_dictionary(), expected_dict,
+            "The dictionary representation does not match expected values.")
+
 
 if __name__ == "__main__":
     unittest.main()
