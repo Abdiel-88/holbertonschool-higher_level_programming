@@ -31,22 +31,24 @@ class Square(Rectangle):
 
     @size.setter
     def size(self, value):
+        # Call the Rectangle's width setter for validation
         self.width = value
         self.height = value
 
     def __str__(self):
-        return f"[Square] ({self.id}) {self.x}/{self.y} - {self.width}"
+        return f"[Square] ({self.id}) {self.x}/{self.y} - {self.size}"
 
     def update(self, *args, **kwargs):
         attrs = ['id', 'size', 'x', 'y']
         if args:
             for attr, arg in zip(attrs, args):
-                setattr(self, attr if attr != 'size' else 'width', arg)
                 if attr == 'size':
-                    self.height = arg
+                    self.size = arg  # Use the size property for validation
+                else:
+                    setattr(self, attr, arg)
         else:
             for key, value in kwargs.items():
-                if key in attrs:
-                    setattr(self, key if key != 'size' else 'width', value)
-                    if key == 'size':
-                        self.height = value
+                if key == 'size':
+                    self.size = value  # Use the size property for validation
+                elif key in attrs:
+                    setattr(self, key, value)
