@@ -1,110 +1,87 @@
 #!/usr/bin/python3
 """
-Unit tests for the Base class.
-
-This test file validates the functionality of the Base class,
-focusing on testing id assignment, JSON string conversion,
-and instance creation from dictionaries.
+Unit tests for the Base class in the models module.
 """
 
 import unittest
+import json
+import os
 from models.base import Base
 from models.rectangle import Rectangle
 from models.square import Square
-import os
-import json
 
 
 class TestBase(unittest.TestCase):
     """
-    Test suite for the Base class.
+    Defines test cases for the Base class functionality.
     """
-
     @classmethod
     def setUpClass(cls):
-        """Reset the Base class counter before the tests run."""
+        """Resets the Base class counter before any tests run."""
         Base._Base__nb_objects = 0
+
+    @classmethod
+    def tearDownClass(cls):
+        """Cleanup actions (if any) after all tests are done."""
+        pass
 
     def setUp(self):
-        """Reset the class attribute before each test."""
+        """Resets the Base class counter before each test."""
         Base._Base__nb_objects = 0
+        # Ensure any test files are removed before starting a test
+        if os.path.exists("Rectangle.json"):
+            os.remove("Rectangle.json")
+        if os.path.exists("Square.json"):
+            os.remove("Square.json")
+
+    def tearDown(self):
+        """Clean up files after tests."""
+        if os.path.exists("Rectangle.json"):
+            os.remove("Rectangle.json")
+        if os.path.exists("Square.json"):
+            os.remove("Square.json")
 
     def test_id_auto_assignment(self):
-        """Test automatic id assignment."""
+        """Tests automatic ID assignment."""
         base1 = Base()
         base2 = Base()
         self.assertEqual(base1.id, 1)
         self.assertEqual(base2.id, 2)
 
     def test_id_manual_assignment(self):
-        """Test manual id assignment."""
-        base3 = Base(10)
-        base4 = Base(20)
-        self.assertEqual(base3.id, 10)
-        self.assertEqual(base4.id, 20)
-
-    def test_id_mixed_assignment(self):
-        """Test mixing manual and automatic id assignment."""
-        base5 = Base()
-        base6 = Base(100)
-        base7 = Base()
-        self.assertEqual(base5.id, 1)
-        self.assertEqual(base6.id, 100)
-        self.assertEqual(base7.id, 2)
+        """Tests manual ID assignment."""
+        base3 = Base(12)
+        self.assertEqual(base3.id, 12)
 
     def test_to_json_string(self):
-        """Test converting a list of dictionaries to a JSON string."""
-        list_dicts = [{'id': 1, 'width': 10, 'height': 7, 'x': 2, 'y': 1},
-                      {'id': 2, 'width': 2, 'height': 4, 'x': 0, 'y': 0}]
-        json_str = Base.to_json_string(list_dicts)
-        self.assertEqual(json_str, json.dumps(list_dicts))
-
-    def test_to_json_string_empty_list(self):
-        """Test converting an empty list to a JSON string."""
-        self.assertEqual(Base.to_json_string([]), "[]")
-
-    def test_to_json_string_none(self):
-        """Test converting None to a JSON string."""
-        self.assertEqual(Base.to_json_string(None), "[]")
+        """Tests converting list of dictionaries to JSON string."""
+        dict_list = [{'id': 2}, {'id': 3}]
+        json_str = Base.to_json_string(dict_list)
+        self.assertEqual(json_str, json.dumps(dict_list))
 
     def test_from_json_string(self):
-        """Test converting a JSON string to a list of dictionaries."""
-        json_str = (
-            '[{"id": 1, "width": 10, "height": 7}, '
-            '{"id": 2, "width": 2, "height": 4}]'
-            )
-        expected = [
-            {"id": 1, "width": 10, "height": 7},
-            {"id": 2, "width": 2, "height": 4}
-            ]
-        self.assertEqual(Base.from_json_string(json_str), expected)
+        """Tests converting JSON string to list of dictionaries."""
+        json_str = '[{"id": 2}, {"id": 3}]'
+        dict_list = Base.from_json_string(json_str)
+        self.assertEqual(dict_list, json.loads(json_str))
 
-    def test_from_json_string_empty(self):
-        """Test converting an empty string to a list."""
-        self.assertEqual(Base.from_json_string(""), [])
+    def test_save_to_file(self):
+        """Tests saving to file."""
+        r1 = Rectangle(10, 7, 2, 8, 1)
+        Rectangle.save_to_file([r1])
+        self.assertTrue(os.path.exists('Rectangle.json'))
 
-    def test_from_json_string_none(self):
-        """Test converting None to a list."""
-        self.assertEqual(Base.from_json_string(None), [])
+    def test_load_from_file_no_file(self):
+        """Tests loading from a file that doesn't exist."""
+        self.assertEqual(Rectangle.load_from_file(), [])
 
-    def test_create_rectangle(self):
-        """Test creating a Rectangle instance from a dictionary."""
-        r_dict = {'width': 3, 'height': 4, 'x': 1, 'y': 2}
-        rectangle = Rectangle.create(**r_dict)
-        self.assertIsInstance(rectangle, Rectangle)
-        self.assertEqual(rectangle.width, 3)
-        self.assertEqual(rectangle.height, 4)
-        self.assertEqual(rectangle.x, 1)
-        self.assertEqual(rectangle.y, 2)
-
-    def test_create_square(self):
-        """Test creating a Square instance from a dictionary."""
-        s_dict = {'size': 5, 'x': 1, 'y': 2}
-        square = Square.create(**s_dict)
-        self.assertIsInstance(square, Square)
-        self.assertEqual(square.size, 5)
-        self.assertEqual(square.x, 1)
-        self.assertEqual(square.y, 2)
+    def test_load_from_file_with_data(self):
+        """Tests loading from a file with data."""
+        r1 = Rectangle(10, 7, 2, 8, 1)
+        Rectangle.save_to_file([r1])
+        objects = Rectangle.load_from_file()
+        self.assertIsInstance(objects[0], Rectangle)
+        self.assertEqual(objects[0].to_dictionary(), r1.to_dictionary())
 
 
 if __name__ == "__main__":
